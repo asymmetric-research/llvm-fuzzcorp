@@ -442,12 +442,24 @@ void Fuzzer::RereadOutputCorpus(size_t MaxSize) {
     PrintStats("RELOAD");
 }
 
+// static bool isPowerOfTwo(size_t val) {
+//   return !(val & (val - 1));
+// }
+
 void Fuzzer::PrintPulseAndReportSlowInput(const uint8_t *Data, size_t Size) {
+  this->CB;
   auto TimeOfUnit =
       duration_cast<seconds>(UnitStopTime - UnitStartTime).count();
-  if (!(TotalNumberOfRuns & (TotalNumberOfRuns - 1)) &&
-      secondsSinceProcessStartUp() >= 2)
+
+  // if (isPowerOfTwo(TotalNumberOfRuns) &&
+  //    secondsSinceProcessStartUp() >= 2)
+
+  size_t secondsSinceStartup = secondsSinceProcessStartUp();
+  if (secondsSinceStartup >= 5 && secondsSinceStartup - LastSecondPrinted >= 5) {
+    LastSecondPrinted = secondsSinceStartup;
     PrintStats("pulse ");
+  }
+
   auto Threshhold =
       static_cast<long>(static_cast<double>(TimeOfLongestUnitInSeconds) * 1.1);
   if (TimeOfUnit > Threshhold && TimeOfUnit >= Options.ReportSlowUnits) {

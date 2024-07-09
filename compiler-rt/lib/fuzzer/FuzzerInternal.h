@@ -123,6 +123,8 @@ private:
   size_t TotalNumberOfRuns = 0;
   size_t NumberOfNewUnitsAdded = 0;
 
+  size_t LastSecondPrinted = 0;
+
   size_t LastCorpusUpdateRun = 0;
 
   bool HasMoreMallocsThanFrees = false;

@@ -788,6 +788,8 @@ int FuzzerDriver(int *argc, char ***argv, UserCallback Callback) {
   Entropic.NumberOfRarestFeatures = Options.EntropicNumberOfRarestFeatures;
   Entropic.ScalePerExecTime = Options.EntropicScalePerExecTime;
 
+  Printf("INFO: Stats reporting: linear\n");
+
   unsigned Seed = Flags.seed;
   // Initialize Seed.
   if (Seed == 0)
